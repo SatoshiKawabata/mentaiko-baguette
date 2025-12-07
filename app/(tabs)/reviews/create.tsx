@@ -1,14 +1,5 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TextInput,
-  TouchableOpacity,
-  Alert,
-  Platform,
-} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { RatingInput } from '../../../components/RatingInput';
 import { ImagePickerComponent } from '../../../components/ImagePicker';
@@ -78,7 +69,7 @@ export default function CreateReviewScreen() {
         reviewed_at: reviewedAt || null,
       };
 
-      const { data, error } = await create(reviewData, imageUrls);
+      const { error } = await create(reviewData, imageUrls);
 
       if (error) {
         Alert.alert('エラー', error.message);

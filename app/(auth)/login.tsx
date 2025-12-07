@@ -9,14 +9,12 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import { useRouter } from 'expo-router';
 import { useAuth } from '../../hooks/useAuth';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const { signInWithMagicLink } = useAuth();
-  const router = useRouter();
 
   const handleLogin = async () => {
     if (!email.trim()) {

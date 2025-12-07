@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS public.review_images (
     review_id UUID NOT NULL REFERENCES public.reviews(id) ON DELETE CASCADE,
     image_url TEXT NOT NULL,
     display_order INTEGER DEFAULT 0 NOT NULL,
+    exif JSONB NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL
 );
 

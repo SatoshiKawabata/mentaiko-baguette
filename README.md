@@ -88,7 +88,7 @@ EXPO_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
    - バケット名: `review-images`
    - 公開バケット: `false`
    - ファイルサイズ制限: 10MB
-   - 許可されるファイル形式: jpg, jpeg, png, webp
+   - 許可されるファイル形式 (MIME): image/jpeg, image/png, image/webp
 
 ### 5. アプリの起動
 
@@ -176,6 +176,7 @@ mentaiko-baguette/
 - `review_id`: UUID (reviewsを参照)
 - `image_url`: TEXT (必須)
 - `display_order`: INTEGER (表示順序)
+- `exif`: JSONB (任意、EXIFなどのメタデータを格納)
 - `created_at`: TIMESTAMP
 
 ### Row Level Security (RLS)

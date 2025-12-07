@@ -25,6 +25,7 @@ export interface ReviewImage {
   review_id: string;
   image_url: string;
   display_order: number;
+  exif: Record<string, any> | null;
   created_at: string; // TIMESTAMP
 }
 

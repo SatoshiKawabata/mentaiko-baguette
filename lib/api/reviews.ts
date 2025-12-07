@@ -1,7 +1,5 @@
 import { supabase } from '../supabase';
 import type {
-  Review,
-  ReviewImage,
   ReviewWithImages,
   ReviewInsert,
   ReviewUpdate,
@@ -114,6 +112,7 @@ export async function createReview(
         review_id: review.id,
         image_url: url,
         display_order: index,
+        exif: null,
       })
     );
 
@@ -170,6 +169,7 @@ export async function updateReview(
         review_id: reviewId,
         image_url: url,
         display_order: index,
+        exif: null,
       })
     );
 

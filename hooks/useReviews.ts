@@ -1,12 +1,6 @@
 import { useState, useEffect } from 'react';
 import type { ReviewWithImages } from '../lib/types';
-import {
-  getMyReviews,
-  getReviewById,
-  createReview,
-  updateReview,
-  deleteReview,
-} from '../lib/api/reviews';
+import { getMyReviews, createReview, updateReview, deleteReview } from '../lib/api/reviews';
 import type { ReviewInsert, ReviewUpdate } from '../lib/types';
 
 export function useReviews() {

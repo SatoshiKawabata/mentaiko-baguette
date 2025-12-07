@@ -10,13 +10,13 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { RatingInput } from '../../../components/RatingInput';
-import { ImagePickerComponent } from '../../../components/ImagePicker';
-import { useReviews } from '../../../hooks/useReviews';
-import { getReviewById } from '../../../lib/api/reviews';
-import { uploadReviewImages } from '../../../lib/api/storage';
-import type { RatingValue, ReviewUpdate } from '../../../lib/types';
-import { RATING_LABELS } from '../../../lib/types';
+import { RatingInput } from '../../../../components/RatingInput';
+import { ImagePickerComponent } from '../../../../components/ImagePicker';
+import { useReviews } from '../../../../hooks/useReviews';
+import { getReviewById } from '../../../../lib/api/reviews';
+import { uploadReviewImages } from '../../../../lib/api/storage';
+import type { RatingValue, ReviewUpdate } from '../../../../lib/types';
+import { RATING_LABELS } from '../../../../lib/types';
 
 export default function EditReviewScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -70,7 +70,9 @@ export default function EditReviewScreen() {
         setPrice(review.price?.toString() || '');
         setComment(review.comment || '');
         setReviewedAt(review.reviewed_at || '');
-        setImageUrls(review.images?.map((img) => img.image_url) || []);
+        setImageUrls(
+          review.images?.map((img: { image_url: string }) => img.image_url) || []
+        );
       }
     } catch (error) {
       Alert.alert('エラー', 'レビューの取得に失敗しました');
@@ -97,7 +99,10 @@ export default function EditReviewScreen() {
       let finalImageUrls = [...existingImageUrls];
       if (localImageUris.length > 0) {
         const uploadResults = await uploadReviewImages(localImageUris, id!);
-        finalImageUrls = [...finalImageUrls, ...uploadResults.map((r) => r.url)];
+        finalImageUrls = [
+          ...finalImageUrls,
+          ...uploadResults.map((r: { url: string }) => r.url),
+        ];
       }
 
       // レビューデータを準備
@@ -117,7 +122,7 @@ export default function EditReviewScreen() {
         reviewed_at: reviewedAt || null,
       };
 
-      const { data, error } = await update(id!, reviewData, finalImageUrls);
+      const { error } = await update(id!, reviewData, finalImageUrls);
 
       if (error) {
         Alert.alert('エラー', error.message);

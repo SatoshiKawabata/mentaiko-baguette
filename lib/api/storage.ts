@@ -37,7 +37,7 @@ export async function uploadReviewImage(
     }
 
     // Supabase Storageにアップロード
-    const { data, error } = await supabase.storage
+    const { error } = await supabase.storage
       .from(BUCKET_NAME)
       .upload(filePath, blob, {
         contentType: blob.type || 'image/jpeg',

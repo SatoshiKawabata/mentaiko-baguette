@@ -103,7 +103,7 @@ export default function ReviewDetailScreen() {
           showsHorizontalScrollIndicator={false}
           style={styles.imageScroll}
         >
-          {review.images.map((img, index) => (
+          {review.images.map((img) => (
             <Image
               key={img.id}
               source={{ uri: img.image_url }}
