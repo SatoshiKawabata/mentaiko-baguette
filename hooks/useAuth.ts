@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import * as Linking from 'expo-linking';
 import { supabase } from '../lib/supabase';
 import type { User, Session } from '@supabase/supabase-js';
 
@@ -28,10 +29,14 @@ export function useAuth() {
   }, []);
 
   const signInWithMagicLink = async (email: string) => {
+    // Expo Goと開発ビルドの両方に対応
+    // Expo Goの場合は exp:// スキーム、開発ビルドの場合はカスタムスキーム
+    const redirectUrl = Linking.createURL('auth/callback');
+
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo: 'mentaiko-baguette://auth/callback',
+        emailRedirectTo: redirectUrl,
       },
     });
     return { error };

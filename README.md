@@ -92,6 +92,8 @@ EXPO_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
 
 ### 5. アプリの起動
 
+#### Expo Goを使用する場合（簡単）
+
 ```bash
 npm start
 # または
@@ -99,6 +101,61 @@ yarn start
 ```
 
 その後、iOSシミュレーター、Androidエミュレーター、または実機でアプリを起動します。
+
+**注意**: Expo Goではカスタムスキーム（`mentaiko-baguette://`）が動作しません。Deep Linkを使用する場合は開発ビルドが必要です。
+
+#### 開発ビルドを作成する場合（推奨）
+
+開発ビルドを使用すると、カスタムスキームが正しく動作し、ネイティブモジュールも使用できます。
+
+**iOS（シミュレーター）:**
+
+```bash
+npm run build:ios
+# または
+npx expo run:ios
+```
+
+**iOS（実機）:**
+
+```bash
+npm run build:ios:simulator
+# または
+npx expo run:ios --device
+```
+
+**Android（エミュレーター/実機）:**
+
+```bash
+npm run build:android
+# または
+npx expo run:android
+```
+
+**前提条件:**
+
+- iOS: Xcodeがインストールされていること
+- Android: Android Studioがインストールされていること
+
+**初回ビルド時:**
+
+- iOS: Xcodeでプロジェクトを開き、開発チームを設定する必要があります
+- Android: Android SDKが正しく設定されている必要があります
+
+**EAS Buildを使用する場合（クラウドビルド）:**
+
+```bash
+# EAS CLIをインストール
+npm install -g eas-cli
+
+# EASにログイン
+eas login
+
+# 開発ビルドを作成
+eas build --profile development --platform ios
+# または
+eas build --profile development --platform android
+```
 
 ## 📁 ディレクトリ構成
 
