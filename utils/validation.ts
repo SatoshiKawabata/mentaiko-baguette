@@ -36,3 +36,6 @@ export function validatePrice(price: string): boolean {
   return !isNaN(num) && num > 0;
 }
 
+
+
+
