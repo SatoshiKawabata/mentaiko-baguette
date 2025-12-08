@@ -55,10 +55,7 @@ export function ImagePickerComponent({
         try {
           // レビュー作成時は一時的なURIを保持、編集時はアップロード
           if (reviewId && asset.uri) {
-            const uploadResult = await uploadReviewImage(
-              asset.uri,
-              reviewId
-            );
+            const uploadResult = await uploadReviewImage(asset.uri, reviewId);
             const newImages = [...images, uploadResult.url];
             setImages(newImages);
             onImagesChange(newImages);
@@ -170,7 +167,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#ccc',
   },
 });
-
-
-
-

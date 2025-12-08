@@ -27,9 +27,7 @@ export function ReviewCard({ review, onPress }: ReviewCardProps) {
       <View style={styles.content}>
         <Text style={styles.storeName}>{review.store_name}</Text>
         {review.reviewed_at && (
-          <Text style={styles.date}>
-            {formatDate(review.reviewed_at)}
-          </Text>
+          <Text style={styles.date}>{formatDate(review.reviewed_at)}</Text>
         )}
         {review.price && (
           <Text style={styles.price}>¥{review.price.toLocaleString()}</Text>
@@ -89,7 +87,3 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
 });
-
-
-
-

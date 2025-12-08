@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react';
 import type { ReviewWithImages } from '../lib/types';
-import { getMyReviews, createReview, updateReview, deleteReview } from '../lib/api/reviews';
+import {
+  getMyReviews,
+  createReview,
+  updateReview,
+  deleteReview,
+} from '../lib/api/reviews';
 import type { ReviewInsert, ReviewUpdate } from '../lib/types';
 
 export function useReviews() {
@@ -29,10 +34,7 @@ export function useReviews() {
     return fetchReviews();
   };
 
-  const create = async (
-    reviewData: ReviewInsert,
-    imageUrls: string[] = []
-  ) => {
+  const create = async (reviewData: ReviewInsert, imageUrls: string[] = []) => {
     try {
       const newReview = await createReview(reviewData, imageUrls);
       setReviews([newReview, ...reviews]);
@@ -50,9 +52,7 @@ export function useReviews() {
   ) => {
     try {
       const updatedReview = await updateReview(reviewId, reviewData, imageUrls);
-      setReviews(
-        reviews.map((r) => (r.id === reviewId ? updatedReview : r))
-      );
+      setReviews(reviews.map((r) => (r.id === reviewId ? updatedReview : r)));
       return { data: updatedReview, error: null };
     } catch (err) {
       const error = err instanceof Error ? err : new Error('Unknown error');
@@ -81,4 +81,3 @@ export function useReviews() {
     remove,
   };
 }
-

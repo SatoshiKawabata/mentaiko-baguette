@@ -80,9 +80,7 @@ export async function uploadReviewImages(
  * 画像を削除
  */
 export async function deleteReviewImage(filePath: string): Promise<void> {
-  const { error } = await supabase.storage
-    .from(BUCKET_NAME)
-    .remove([filePath]);
+  const { error } = await supabase.storage.from(BUCKET_NAME).remove([filePath]);
 
   if (error) {
     throw error;
@@ -93,12 +91,9 @@ export async function deleteReviewImage(filePath: string): Promise<void> {
  * 複数の画像を削除
  */
 export async function deleteReviewImages(filePaths: string[]): Promise<void> {
-  const { error } = await supabase.storage
-    .from(BUCKET_NAME)
-    .remove(filePaths);
+  const { error } = await supabase.storage.from(BUCKET_NAME).remove(filePaths);
 
   if (error) {
     throw error;
   }
 }
-

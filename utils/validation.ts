@@ -35,7 +35,3 @@ export function validatePrice(price: string): boolean {
   const num = parseInt(price, 10);
   return !isNaN(num) && num > 0;
 }
-
-
-
-

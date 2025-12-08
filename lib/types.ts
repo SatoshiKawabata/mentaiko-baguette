@@ -45,10 +45,7 @@ export type ReviewUpdate = Partial<
 >;
 
 // 画像作成用の型
-export type ReviewImageInsert = Omit<
-  ReviewImage,
-  'id' | 'created_at'
->;
+export type ReviewImageInsert = Omit<ReviewImage, 'id' | 'created_at'>;
 
 // 評価項目の型
 export type RatingValue = 1 | 2 | 3 | 4 | 5;
@@ -75,4 +72,3 @@ export const RATING_LABELS: RatingLabels = {
   overall_balance: '全体のバランス／調和',
   satisfaction: '満足感／好み度',
 };
-

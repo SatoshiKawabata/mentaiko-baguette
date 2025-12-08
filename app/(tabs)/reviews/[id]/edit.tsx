@@ -71,7 +71,8 @@ export default function EditReviewScreen() {
         setComment(review.comment || '');
         setReviewedAt(review.reviewed_at || '');
         setImageUrls(
-          review.images?.map((img: { image_url: string }) => img.image_url) || []
+          review.images?.map((img: { image_url: string }) => img.image_url) ||
+            []
         );
       }
     } catch (error) {
@@ -91,7 +92,9 @@ export default function EditReviewScreen() {
     setSaving(true);
     try {
       // 新しい画像をアップロード（ローカルURIの場合）
-      const localImageUris = imageUrls.filter((url) => url.startsWith('file://'));
+      const localImageUris = imageUrls.filter((url) =>
+        url.startsWith('file://')
+      );
       const existingImageUrls = imageUrls.filter(
         (url) => !url.startsWith('file://')
       );
@@ -328,4 +331,3 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 });
-

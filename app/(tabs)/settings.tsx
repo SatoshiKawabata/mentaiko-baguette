@@ -19,25 +19,21 @@ export default function SettingsScreen() {
   const [newEmail, setNewEmail] = useState('');
 
   const handleSignOut = async () => {
-    Alert.alert(
-      'ログアウト',
-      'ログアウトしますか？',
-      [
-        { text: 'キャンセル', style: 'cancel' },
-        {
-          text: 'ログアウト',
-          style: 'destructive',
-          onPress: async () => {
-            const { error } = await signOut();
-            if (error) {
-              Alert.alert('エラー', 'ログアウトに失敗しました');
-            } else {
-              router.replace('/(auth)/login');
-            }
-          },
+    Alert.alert('ログアウト', 'ログアウトしますか？', [
+      { text: 'キャンセル', style: 'cancel' },
+      {
+        text: 'ログアウト',
+        style: 'destructive',
+        onPress: async () => {
+          const { error } = await signOut();
+          if (error) {
+            Alert.alert('エラー', 'ログアウトに失敗しました');
+          } else {
+            router.replace('/(auth)/login');
+          }
         },
-      ]
-    );
+      },
+    ]);
   };
 
   const handleUpdateEmail = async () => {
@@ -200,7 +196,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
-
-
-

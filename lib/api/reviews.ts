@@ -107,14 +107,12 @@ export async function createReview(
 
   // 画像を追加
   if (imageUrls.length > 0) {
-    const imageInserts: ReviewImageInsert[] = imageUrls.map(
-      (url, index) => ({
-        review_id: review.id,
-        image_url: url,
-        display_order: index,
-        exif: null,
-      })
-    );
+    const imageInserts: ReviewImageInsert[] = imageUrls.map((url, index) => ({
+      review_id: review.id,
+      image_url: url,
+      display_order: index,
+      exif: null,
+    }));
 
     const { error: imageError } = await supabase
       .from('review_images')
@@ -164,14 +162,12 @@ export async function updateReview(
 
   // 新しい画像を追加
   if (imageUrls.length > 0) {
-    const imageInserts: ReviewImageInsert[] = imageUrls.map(
-      (url, index) => ({
-        review_id: reviewId,
-        image_url: url,
-        display_order: index,
-        exif: null,
-      })
-    );
+    const imageInserts: ReviewImageInsert[] = imageUrls.map((url, index) => ({
+      review_id: reviewId,
+      image_url: url,
+      display_order: index,
+      exif: null,
+    }));
 
     const { error: imageError } = await supabase
       .from('review_images')
@@ -210,11 +206,13 @@ export async function deleteReview(reviewId: string): Promise<void> {
 
   // Storageから画像を削除（オプション、エラーが発生しても続行）
   if (images && images.length > 0) {
-    const filePaths = images.map((img) => {
-      // image_urlからパスを抽出（例: https://xxx.supabase.co/storage/v1/object/public/review-images/path/to/image.jpg）
-      const urlParts = img.image_url.split('/review-images/');
-      return urlParts.length > 1 ? urlParts[1] : null;
-    }).filter((path): path is string => path !== null);
+    const filePaths = images
+      .map((img) => {
+        // image_urlからパスを抽出（例: https://xxx.supabase.co/storage/v1/object/public/review-images/path/to/image.jpg）
+        const urlParts = img.image_url.split('/review-images/');
+        return urlParts.length > 1 ? urlParts[1] : null;
+      })
+      .filter((path): path is string => path !== null);
 
     if (filePaths.length > 0) {
       try {
@@ -231,4 +229,3 @@ export async function deleteReview(reviewId: string): Promise<void> {
     }
   }
 }
-

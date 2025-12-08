@@ -41,30 +41,26 @@ export default function ReviewDetailScreen() {
   };
 
   const handleDelete = () => {
-    Alert.alert(
-      '削除確認',
-      'このレビューを削除しますか？',
-      [
-        { text: 'キャンセル', style: 'cancel' },
-        {
-          text: '削除',
-          style: 'destructive',
-          onPress: async () => {
-            try {
-              setDeleting(true);
-              await deleteReview(id!);
-              Alert.alert('削除完了', 'レビューを削除しました');
-              router.back();
-            } catch (error) {
-              Alert.alert('エラー', '削除に失敗しました');
-              console.error(error);
-            } finally {
-              setDeleting(false);
-            }
-          },
+    Alert.alert('削除確認', 'このレビューを削除しますか？', [
+      { text: 'キャンセル', style: 'cancel' },
+      {
+        text: '削除',
+        style: 'destructive',
+        onPress: async () => {
+          try {
+            setDeleting(true);
+            await deleteReview(id!);
+            Alert.alert('削除完了', 'レビューを削除しました');
+            router.back();
+          } catch (error) {
+            Alert.alert('エラー', '削除に失敗しました');
+            console.error(error);
+          } finally {
+            setDeleting(false);
+          }
         },
-      ]
-    );
+      },
+    ]);
   };
 
   const formatDate = (dateString: string | null) => {
@@ -119,7 +115,9 @@ export default function ReviewDetailScreen() {
           <Text style={styles.storeUrl}>{review.store_url}</Text>
         )}
         {review.reviewed_at && (
-          <Text style={styles.date}>食べた日: {formatDate(review.reviewed_at)}</Text>
+          <Text style={styles.date}>
+            食べた日: {formatDate(review.reviewed_at)}
+          </Text>
         )}
         {review.price && (
           <Text style={styles.price}>¥{review.price.toLocaleString()}</Text>
@@ -144,9 +142,7 @@ export default function ReviewDetailScreen() {
             </Text>
           </View>
           <View style={styles.ratingRow}>
-            <Text style={styles.ratingLabel}>
-              {RATING_LABELS.dough_flavor}
-            </Text>
+            <Text style={styles.ratingLabel}>{RATING_LABELS.dough_flavor}</Text>
             <Text style={styles.ratingValue}>
               {getRatingValue(review.dough_flavor)}
             </Text>
@@ -184,9 +180,7 @@ export default function ReviewDetailScreen() {
             </Text>
           </View>
           <View style={styles.ratingRow}>
-            <Text style={styles.ratingLabel}>
-              {RATING_LABELS.satisfaction}
-            </Text>
+            <Text style={styles.ratingLabel}>{RATING_LABELS.satisfaction}</Text>
             <Text style={styles.ratingValue}>
               {getRatingValue(review.satisfaction)}
             </Text>
@@ -331,4 +325,3 @@ const styles = StyleSheet.create({
     color: '#ff3b30',
   },
 });
-

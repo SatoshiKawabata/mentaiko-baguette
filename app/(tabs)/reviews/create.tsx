@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import { useRouter } from 'expo-router';
 import { RatingInput } from '../../../components/RatingInput';
 import { ImagePickerComponent } from '../../../components/ImagePicker';
@@ -261,4 +269,3 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 });
-
