@@ -34,27 +34,41 @@ export default function AuthVerify() {
           return;
         }
 
-        // Supabaseの認証URLを再構築して、Deep Linkにリダイレクトさせる
+        // Supabaseのverifyエンドポイントを開いて、Deep Linkにリダイレクトさせる
+        // これにより、Supabaseがトークンを検証し、セッションを設定してからDeep Linkにリダイレクトする
         const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL || '';
-        const verifyUrl = `${supabaseUrl}/auth/v1/verify?token=${token}&type=${type}&redirect_to=${encodeURIComponent(redirectTo || 'mentaiko-baguette://auth/callback')}`;
+        const finalRedirectTo =
+          redirectTo || 'mentaiko-baguette://auth/callback';
+        const verifyUrl = `${supabaseUrl}/auth/v1/verify?token=${encodeURIComponent(token)}&type=${type}&redirect_to=${encodeURIComponent(finalRedirectTo)}`;
 
-        // 認証URLを開く（ブラウザまたはアプリ内で）
-        // これにより、SupabaseがDeep Linkにリダイレクトする
+        setMessage('認証を処理しています...');
+
+        // Supabaseのverifyエンドポイントを開く
+        // これにより、Supabaseがトークンを検証し、セッションを設定してからDeep Linkにリダイレクトする
         const canOpen = await Linking.canOpenURL(verifyUrl);
         if (canOpen) {
           await Linking.openURL(verifyUrl);
-          setMessage('認証ページを開いています...');
+          setMessage('認証を完了しています...');
 
-          // 少し待ってからセッションを確認
-          setTimeout(async () => {
+          // Deep Linkが処理されるまで少し待つ
+          // セッションが設定されるのを待つ
+          let attempts = 0;
+          const maxAttempts = 15;
+          const checkSession = setInterval(async () => {
+            attempts++;
             const {
               data: { session },
             } = await supabase.auth.getSession();
+
             if (session) {
+              clearInterval(checkSession);
               setStatus('success');
               setMessage('認証が完了しました');
-              router.replace('/(tabs)/reviews');
-            } else {
+              setTimeout(() => {
+                router.replace('/(tabs)/reviews');
+              }, 500);
+            } else if (attempts >= maxAttempts) {
+              clearInterval(checkSession);
               setStatus('error');
               setMessage(
                 '認証に失敗しました。メールのリンクを再度クリックしてください。'
@@ -63,7 +77,7 @@ export default function AuthVerify() {
                 router.replace('/(auth)/login');
               }, 3000);
             }
-          }, 2000);
+          }, 500);
         } else {
           setStatus('error');
           setMessage('認証URLを開けませんでした');

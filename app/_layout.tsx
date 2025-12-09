@@ -83,12 +83,20 @@ export default function RootLayout() {
   useEffect(() => {
     if (loading) return;
 
-    const inAuthGroup = segments[0] === '(auth)';
+    const segmentsArray = segments as readonly string[];
+    const inAuthGroup = segmentsArray[0] === '(auth)';
+    const secondSegment =
+      segmentsArray.length > 1 ? segmentsArray[1] : undefined;
+
+    // verifyやcallback画面では認証チェックをスキップ（認証処理中）
+    if (secondSegment === 'verify' || secondSegment === 'callback') {
+      return;
+    }
 
     if (!user && !inAuthGroup) {
       // 未認証の場合はログイン画面へ
       router.replace('/(auth)/login');
-    } else if (user && inAuthGroup && segments[1] !== 'callback') {
+    } else if (user && inAuthGroup && secondSegment !== 'callback') {
       // 認証済みの場合はレビュー一覧へ（コールバック画面は除く）
       router.replace('/(tabs)/reviews');
     }
