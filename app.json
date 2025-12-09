@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "マイ明太フランス",
+    "slug": "mentaiko-baguette",
+    "version": "0.0.1",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FEEACE"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mentaikobaguette.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FEEACE"
+      },
+      "package": "com.mentaikobaguette.app"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "scheme": "mentaiko-baguette",
+    "plugins": ["expo-router"]
+  }
+}

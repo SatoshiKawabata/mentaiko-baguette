@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+.expo/
+dist/
+build/
+web-build/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+
+# Environment
+.env
+.env.local
+
+# TypeScript
+*.tsbuildinfo
+
+# Generated files
+.expo-shared/
+
